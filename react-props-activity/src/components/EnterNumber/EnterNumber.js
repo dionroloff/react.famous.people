@@ -5,55 +5,31 @@ class EnterNumber extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            total: 0,
-            numberOnDom: 0,
+            inputNumber: 0,
         }
     }
 
-    reassignState = () => {
+    handleChange = (event) => {
         this.setState({
-            total: this.state.total,
-        })
+            inputNumber: parseInt(event.target.value),
+        });
     }
 
-    newNumberUp = (event) => {
-        event.preventDefault();
-
-        this.setState({
-            total: this.state.total + this.state.numberOnDom,
-        })
-
-        // console.log(`${this.state.total}`);
-        // //pass this number to App.js
-        // const numberIn = {
-        //     numberIn: this.state.total,
-        // }
-        // this.props.numberOnDom(numberIn);
+    handleUpClick = () => {
+        this.props.updateTotal(this.state.inputNumber);
     }
 
-    newNumberDown = (event) => {
-        event.preventDefault();
-
-        this.setState({
-            total: this.state.total - this.state.numberOnDom,
-        })
-
-        // console.log(`${this.state.total}`);
-        // //pass this number to App.js
-        // const numberIn = {
-        //     numberIn: this.state.total,
-        // }
-        // this.props.numberOnDom(numberIn);
+    handleDownClick = () => {
+        this.props.updateTotal(0 - this.state.inputNumber);
     }
     
     render() {
-        console.log(this.state.total);
+        console.log(this.state.inputNumber);
         return (
             <div>
-                <button onClick={this.newNumberUp}>Up</button>
-                <input type="number" placeholder="Enter Number" onChange={this.reassignState}/>
-                <button onClick={this.newNumberDown}>Down</button>
-                {JSON.stringify(this.state)}
+                <button onClick={this.handleUpClick}>Up</button>
+                <input type="number" placeholder="Enter Number" onChange={this.handleChange}/>
+                <button onClick={this.handleDownClick}>Down</button>  
             </div>
         )
     }
